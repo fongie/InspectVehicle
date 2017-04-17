@@ -6,4 +6,6 @@ public class PrintResults {
 
 	public PrintResults(String[] inspectionsPerformed, String[] results, Printer printer) {}
 	
+	//noteself: skrivs ut i printer
+	public String toString() {}
 }

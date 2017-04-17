@@ -4,6 +4,7 @@ import se.kth.iv1350.garage.Garage;
 import se.kth.iv1350.inspectvehicle.integration.CarRegistry;
 import se.kth.iv1350.inspectvehicle.integration.Printer;
 import se.kth.iv1350.inspectvehicle.model.*;
+import se.kth.iv1350.payauth.CreditCard;
 
 /**
  * The only controller class for the program, all calls from the user interface
@@ -45,6 +46,11 @@ public class Controller {
 		grg.closeDoor();
 	}
 	
+	/**
+	 * User inputs the registration number of a car. The system returns the cost of the inspection of this car, if the registration number exists in the database.
+	 * @param vehicleRegNr The car's registration number
+	 * @return The cost of the upcoming inspection.
+	 */
 	public int enterRegNr(String vehicleRegNr) {
 		while(true) {
 			boolean numberExists = carRegistry.doesNrExist(vehicleRegNr);
@@ -56,11 +62,12 @@ public class Controller {
 		}
 		
 		Inspection inspection = new Inspection(vehicleRegNr, prnt);
-		int cost = inspection.getCost();
-		return cost;
+		return inspection.getCost();
 	}
 	
-	public void payByCC(CreditCardDTO card) {}
+	public void payByCC(CreditCard card) {
+		new CreditCardPayment(card, currentInspection.getCost());
+	}
 	
 	public void payByCash(int amount) {}
 	

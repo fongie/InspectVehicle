@@ -1,6 +1,10 @@
 package se.kth.iv1350.inspectvehicle.view;
 
+
+import java.time.YearMonth;
+
 import se.kth.iv1350.inspectvehicle.controller.Controller;
+import se.kth.iv1350.payauth.CreditCard;
 
 /**
  * Represents the user interface, not coded here but instead the system calls are hard coded.
@@ -25,6 +29,7 @@ public class View {
 	
 	private void startHardCodedCommands() {
 		
+
 		contr.beginInspection();
 		System.out.println("Begin new inspection: Display next number and open garage door");
 
@@ -33,7 +38,13 @@ public class View {
 
 		String sampleRegNr = "ABC123";
 		System.out.println("Inputting customer car with registration number " + sampleRegNr + " into the system.");
-		contr.enterRegNr(sampleRegNr);
+		int cost = contr.enterRegNr(sampleRegNr);
+		System.out.println("The cost of the inspection is: " + cost + ".");
+		
+		System.out.println("User wishes to pay by Credit Card. Inputting credit card details..");
+		
+		CreditCard customerCC = new CreditCard(0, "1234-5678-1234", "Fake Fakesson", YearMonth.of(2020, 10), 500);
+		contr.payByCC(customerCC);
 		
 	}
 }

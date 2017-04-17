@@ -8,4 +8,6 @@ public class Receipt {
 	
 	public Receipt(CreditCardPayment ccPayment) {}
 
+	//noteself: skrivs ut i printer
+	public String toString() {}
 }

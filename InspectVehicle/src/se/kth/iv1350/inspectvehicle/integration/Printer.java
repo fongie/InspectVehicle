@@ -18,8 +18,23 @@ public class Printer {
 		
 	}
 	
-	public void print(Receipt receipt) {}
+	/**
+	 * Prints a receipt.
+	 * In current implementation, instead prints out the receipt to console,
+	 * due to dummy implementation.
+	 * @param receipt The receipt to be printed.
+	 */
+	public void print(Receipt receipt) {
+		System.out.println(receipt.toString());
+	}
 	
-	public void print(PrintResults resultsToPrint) {}
-
+	/**
+	 * Prints a results sheet.
+	 * In current implementation, instead prints out the results to console,
+	 * due to dummy implementation.
+	 * @param resultsToPrint The results to be printed.
+	 */
+	public void print(PrintResults resultsToPrint) {
+		System.out.println(resultsToPrint.toString());
+	}
 }

@@ -6,10 +6,21 @@ public class CarInDatabase {
 	private String[] inspectionsNeeded;
 
 	public CarInDatabase(String regNr) {
+		this.regNr = regNr;
 		
+		getInformationFromDatabase();
 	}
 	
-	public String[] getInspectionsNeeded() {}
+	public String[] getInspectionsNeeded() {
+		return inspectionsNeeded;
+	}
 	
 	public void updateDatabase(String[] inspectionsPerformed, String[] resultsOfInspections) {}
+	
+	private void getInformationFromDatabase() {
+		
+		//TODO fix database interaction
+		String [] info = {"lights", "enginge", "brakes"};
+		inspectionsNeeded = info;
+	}
 }
