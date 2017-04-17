@@ -1,4 +1,4 @@
-package se.kth.iv1350.inspectvehicle.model.payment;
+package se.kth.iv1350.inspectvehicle.model;
 
 /**
  * The cash register, contains balance and methods to update it.
@@ -15,4 +15,6 @@ public class CashRegister {
 	public CashRegister() {
 		
 	}
+	
+	public void add(int income) {}
 }

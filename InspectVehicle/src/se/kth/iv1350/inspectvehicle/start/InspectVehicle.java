@@ -3,7 +3,7 @@ package se.kth.iv1350.inspectvehicle.start;
 import se.kth.iv1350.inspectvehicle.controller.Controller;
 import se.kth.iv1350.inspectvehicle.integration.CarRegistry;
 import se.kth.iv1350.inspectvehicle.integration.Printer;
-import se.kth.iv1350.inspectvehicle.model.payment.CashRegister;
+import se.kth.iv1350.inspectvehicle.model.CashRegister;
 import se.kth.iv1350.inspectvehicle.view.View;
 
 /**
@@ -20,15 +20,13 @@ public class InspectVehicle {
 	 */
 	public static void main(String[] args) {
 
-	System.out.println("HELLO WORLD");
+	System.out.println("Starting program...");
 	
 	CarRegistry registry = new CarRegistry();
 	CashRegister cashreg = new CashRegister();
 	Printer prnt = new Printer();
-	Controller contr = new Controller(registry,cashreg);
+	Controller contr = new Controller(registry,cashreg, prnt);
 	new View(contr);
 	
-	System.out.println("Its working?");
-
 	}
 }
