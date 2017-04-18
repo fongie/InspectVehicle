@@ -15,7 +15,7 @@ public class Controller {
 	private CarRegistry carRegistry;
 	private CashRegister cashReg;
 	private Garage grg;
-	private Printer prnt;
+	private Printer printer;
 	private Inspection currentInspection;
 	
 	/**
@@ -29,7 +29,7 @@ public class Controller {
 		this.carRegistry = carRegistry;
 		this.cashReg = cashReg;
 		this.grg = new Garage();
-		this.prnt = prnt;
+		this.printer = prnt;
 	}
 	
 	/**
@@ -61,12 +61,12 @@ public class Controller {
 			}
 		}
 		
-		Inspection inspection = new Inspection(vehicleRegNr, prnt);
-		return inspection.getCost();
+		currentInspection = new Inspection(vehicleRegNr, printer);
+		return currentInspection.getCost();
 	}
 	
 	public void payByCC(CreditCard card) {
-		new CreditCardPayment(card, currentInspection.getCost());
+		new CreditCardPayment(card, currentInspection.getCost(), printer);
 	}
 	
 	public void payByCash(int amount) {}

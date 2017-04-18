@@ -29,7 +29,6 @@ public class View {
 	
 	private void startHardCodedCommands() {
 		
-
 		contr.beginInspection();
 		System.out.println("Begin new inspection: Display next number and open garage door");
 
@@ -43,6 +42,7 @@ public class View {
 		
 		System.out.println("User wishes to pay by Credit Card. Inputting credit card details..");
 		
+		System.out.println("Receipt:\n");
 		CreditCard customerCC = new CreditCard(0, "1234-5678-1234", "Fake Fakesson", YearMonth.of(2020, 10), 500);
 		contr.payByCC(customerCC);
 		

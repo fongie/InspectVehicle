@@ -54,7 +54,7 @@ public class Inspection {
 	//could implement enum to handle different costs for different parts
 	private int calculateCost() {
 		int totalCost = 0;
-		for (String part : inspectionsToPerform) {
+		for (int i = 0; i < inspectionsToPerform.length; i++) {
 			totalCost += costPerPartOfInspection;
 		}
 		return totalCost;
