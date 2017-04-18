@@ -1,5 +1,7 @@
 package se.kth.iv1350.inspectvehicle.integration;
 
+import java.util.ArrayList;
+
 /**
  * Represents the information concerning a car that is in the database.
  * @author Max Körlinge
@@ -8,7 +10,8 @@ package se.kth.iv1350.inspectvehicle.integration;
 public class CarInDatabase {
 	
 	private String regNr;
-	private String[] inspectionsNeeded;
+	//private String[] inspectionsNeeded;
+	private ArrayList<String> inspectionsNeeded;
 
 	/**
 	 * Creates an instance of the car in database, containing information
@@ -18,7 +21,6 @@ public class CarInDatabase {
 	 */
 	public CarInDatabase(String regNr) {
 		this.regNr = regNr;
-		
 		getInformationFromDatabase();
 	}
 	
@@ -26,16 +28,17 @@ public class CarInDatabase {
 	 * Returns the inspections needed for this vehicle.
 	 * @return The inspections needed.
 	 */
-	public String[] getInspectionsNeeded() {
+	public ArrayList<String> getInspectionsNeeded() {
 		return inspectionsNeeded;
 	}
 	
 	public void updateDatabase(String[] inspectionsPerformed, String[] resultsOfInspections) {}
 	
 	private void getInformationFromDatabase() {
-		
 		//TODO fix database interaction
 		String[] info = {"lights", "enginge", "brakes"};
-		inspectionsNeeded = info;
+		for (String item : info) {
+			inspectionsNeeded.add(item);
+		}
 	}
 }

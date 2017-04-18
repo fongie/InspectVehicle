@@ -10,7 +10,6 @@ import se.kth.iv1350.payauth.CreditCard;
  * Represents the user interface, not coded here but instead the system calls are hard coded.
  * 
  * @author Max Körlinge
- *
  */
 public class View {
 	private Controller contr;
@@ -46,5 +45,6 @@ public class View {
 		CreditCard customerCC = new CreditCard(0, "1234-5678-1234", "Fake Fakesson", YearMonth.of(2020, 10), 500);
 		contr.payByCC(customerCC);
 		
+
 	}
 }

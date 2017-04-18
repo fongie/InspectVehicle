@@ -19,7 +19,7 @@ public class Controller {
 	private Inspection currentInspection;
 	
 	/**
-	 * Starts an instance of the Controller, which handles all calls from the View to the Model.
+	 * Starts an instance of the <code>Controller</code>, which handles all calls from the View to the Model.
 	 * 
 	 * @param carRegistry An instance of the registry containing all registration numbers.
 	 * @param cashReg The cashregister, containing the balance in cash
@@ -33,7 +33,7 @@ public class Controller {
 	}
 	
 	/**
-	 * Instruct the Garage to display next customer's queue number and open the garage door.
+	 * Instruct the <code>Garage</code> to display next customer's queue number and open the garage door.
 	 */
 	public void beginInspection() {
 		grg.nextCustomer();
@@ -60,15 +60,23 @@ public class Controller {
 				//we do not code alternate flows, in this program, this always exist
 			}
 		}
-		
 		currentInspection = new Inspection(vehicleRegNr, printer);
 		return currentInspection.getCost();
 	}
 	
+	/**
+	 * Instruct system that user is paying by credit card.
+	 * @param card The credit card information to be paid with
+	 */
 	public void payByCC(CreditCard card) {
 		new CreditCardPayment(card, currentInspection.getCost(), printer);
 	}
 	
+	/**
+	 * Instruct system that user is paying by cash.
+	 * Not implemented (we do not code alternate flows)
+	 * @param amount The amount paid by the customer in cash.
+	 */
 	public void payByCash(int amount) {}
 	
 	public String whatInspectNext() {}

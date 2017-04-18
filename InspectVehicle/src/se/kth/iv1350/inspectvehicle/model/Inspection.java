@@ -1,5 +1,8 @@
 package se.kth.iv1350.inspectvehicle.model;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import se.kth.iv1350.inspectvehicle.integration.CarInDatabase;
 import se.kth.iv1350.inspectvehicle.integration.Printer;
 
@@ -14,7 +17,8 @@ public class Inspection {
 	private String currentVehicleRegnr;
 	private Printer printer;
 	private CarInDatabase currentCar;
-	private String[] inspectionsToPerform;
+	private ArrayList<String> inspectionsToPerform;
+	private Iterator<String> inspectionsIterator;
 	private String[] resultsOfInspection;
 	private int cost;
 	private final int costPerPartOfInspection = 500;
@@ -42,7 +46,14 @@ public class Inspection {
 		return cost;
 	}
 	
-	public String toInspectNext() {}
+	//TODO HÄR ÄR JAG NU!! KÖR DETTA I VIEW! OCH IMPLEMENTERA I CONTR!
+	public String toInspectNext() throws NoMoreInspectionsException {
+		if (inspectionsIterator.hasNext()) {
+			return inspectionsIterator.next();
+		} else {
+			throw new NoMoreInspectionsException("No more inspections to make.");
+		}
+	}
 	
 	public void addResult(String result) {
 	//TODO MAKE ENUM FOR RESULT FALSE OR TRUE, see course litterature
