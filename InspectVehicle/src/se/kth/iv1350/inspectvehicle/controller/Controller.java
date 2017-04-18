@@ -79,9 +79,28 @@ public class Controller {
 	 */
 	public void payByCash(int amount) {}
 	
-	public String whatInspectNext() {}
+	/**
+	 * Get what item or task to inspect next on the vehicle.
+	 * If nothing more is to be inspected, the method <code>finishInspection()</code>
+	 * in the current instance of the <code>Inspection</code> class is started.
+	 * @return The item or task as a string.
+	 */
+	public String whatInspectNext() {
+		try {
+			return currentInspection.toInspectNext();
+		} catch (NoMoreInspectionsException e) {
+			System.out.println(e.getMessage());
+			currentInspection.finishInspection();
+			return "END LOOP";
+		}
+	}
 	
-	public void enterResultOfInspection(String result) {}
-	
+	/**
+	 * Enter the result of the current item being inspected.
+	 * @param result The result. Either "pass" or "fail".
+	 */
+	public void enterResultOfInspection(String result) {
+			currentInspection.addResult(result);
+	}
 }
 

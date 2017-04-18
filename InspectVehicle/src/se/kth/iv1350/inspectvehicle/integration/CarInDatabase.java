@@ -21,6 +21,7 @@ public class CarInDatabase {
 	 */
 	public CarInDatabase(String regNr) {
 		this.regNr = regNr;
+		this.inspectionsNeeded = new ArrayList<String>();
 		getInformationFromDatabase();
 	}
 	
@@ -36,7 +37,7 @@ public class CarInDatabase {
 	
 	private void getInformationFromDatabase() {
 		//TODO fix database interaction
-		String[] info = {"lights", "enginge", "brakes"};
+		String[] info = {"lights", "engine", "brakes"};
 		for (String item : info) {
 			inspectionsNeeded.add(item);
 		}

@@ -19,7 +19,7 @@ public class Inspection {
 	private CarInDatabase currentCar;
 	private ArrayList<String> inspectionsToPerform;
 	private Iterator<String> inspectionsIterator;
-	private String[] resultsOfInspection;
+	private ArrayList<String> resultsOfInspection;
 	private int cost;
 	private final int costPerPartOfInspection = 500;
 	
@@ -32,9 +32,10 @@ public class Inspection {
 	public Inspection(String regNr, Printer printer) {
 		this.currentVehicleRegnr = regNr;
 		this.printer = printer;
-		
 		currentCar = new CarInDatabase(currentVehicleRegnr);
 		inspectionsToPerform = currentCar.getInspectionsNeeded();
+		inspectionsIterator = inspectionsToPerform.iterator();
+		resultsOfInspection = new ArrayList<String>();
 		cost = calculateCost();
 	}
 		
@@ -46,26 +47,39 @@ public class Inspection {
 		return cost;
 	}
 	
-	//TODO HÄR ÄR JAG NU!! KÖR DETTA I VIEW! OCH IMPLEMENTERA I CONTR!
+	/**
+	 * Get the next task to inspect on the current vehicle. Iterates through the
+	 * inspections needed until finished
+	 * @return The next item or task to inspect, as a String
+	 * @throws NoMoreInspectionsException When the inspection is finished (no more tasks).
+	 */
 	public String toInspectNext() throws NoMoreInspectionsException {
 		if (inspectionsIterator.hasNext()) {
 			return inspectionsIterator.next();
 		} else {
-			throw new NoMoreInspectionsException("No more inspections to make.");
+			throw new NoMoreInspectionsException("There are no more inspections to make.\n" +
+												 "Finishing up...");
 		}
 	}
 	
+	/**
+	 * Add the result of an inspection, either "pass" or "fail".
+	 * Note that the result at index i in this list will correspond to index i in the
+	 * list of inspections to make.
+	 * @param result The result to be written.
+	 */
 	public void addResult(String result) {
-	//TODO MAKE ENUM FOR RESULT FALSE OR TRUE, see course litterature
+		resultsOfInspection.add(result);
 	}
 	
+	// HÄR ÄR JAG!! KODA DENNA!
 	public void finishInspection() {}
 	
 	//each part of the inspection costs 500, 
 	//could implement enum to handle different costs for different parts
 	private int calculateCost() {
 		int totalCost = 0;
-		for (int i = 0; i < inspectionsToPerform.length; i++) {
+		for (int i = 0; i < inspectionsToPerform.size(); i++) {
 			totalCost += costPerPartOfInspection;
 		}
 		return totalCost;
