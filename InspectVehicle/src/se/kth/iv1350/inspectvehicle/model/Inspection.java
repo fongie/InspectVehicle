@@ -72,8 +72,14 @@ public class Inspection {
 		resultsOfInspection.add(result);
 	}
 	
-	// HÄR ÄR JAG!! KODA DENNA!
-	public void finishInspection() {}
+	/**
+	 * Finish the inspection, that means update the database with the results and print a results sheet.
+	 */
+	public void finishInspection() {
+		//TODO write test that tests if PrintResults call, inspectoinsntoperform and resultsofinspection are of same size
+		currentCar.updateDatabase(inspectionsToPerform, resultsOfInspection);
+		new PrintResults(inspectionsToPerform, resultsOfInspection, printer);
+	}
 	
 	//each part of the inspection costs 500, 
 	//could implement enum to handle different costs for different parts
@@ -84,5 +90,4 @@ public class Inspection {
 		}
 		return totalCost;
 	}
-
 }

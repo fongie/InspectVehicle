@@ -12,7 +12,6 @@ import se.kth.iv1350.inspectvehicle.model.Receipt;
 public class Printer {
 	
 	/** Creates instance that will handle all print calls
-	 * 
 	 */
 	public Printer() {
 		

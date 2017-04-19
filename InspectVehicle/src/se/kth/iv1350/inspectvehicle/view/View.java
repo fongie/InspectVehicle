@@ -38,7 +38,7 @@ public class View {
 		contr.closeDoor();
 		System.out.println("Closing garage door.");
 
-		String sampleRegNr = "ABC123";
+		String sampleRegNr = "DEF456";
 		System.out.println("Inputting customer car with registration number " + sampleRegNr + " into the system.");
 		int cost = contr.enterRegNr(sampleRegNr);
 		System.out.println("The cost of the inspection is: " + cost + ".");

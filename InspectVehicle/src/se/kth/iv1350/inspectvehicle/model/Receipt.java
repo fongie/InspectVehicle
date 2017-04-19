@@ -16,10 +16,7 @@ public class Receipt {
 			+ "RECEIPT FROM MYVEHICLEINSPECTIONCOMPANY\n"
 			+ delimiter;
 	private String typeSpecificPartOfReceipt;
-
-	private String lastPartOfReceipt = delimiter;
-
-	public Receipt(Inspection inspection) {}
+	private final String lastPartOfReceipt = delimiter;
 	
 	/**
 	 * Not implemented (we do not code alternate flows)

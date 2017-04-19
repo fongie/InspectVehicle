@@ -20,13 +20,12 @@ public class InspectVehicle {
 	 */
 	public static void main(String[] args) {
 
-	System.out.println("Starting program...");
-	
-	CarRegistry registry = new CarRegistry();
-	CashRegister cashreg = new CashRegister();
-	Printer prnt = new Printer();
-	Controller contr = new Controller(registry,cashreg, prnt);
-	new View(contr);
-	
+		System.out.println("Starting program...");
+		
+		CarRegistry registry = new CarRegistry();
+		CashRegister cashreg = new CashRegister();
+		Printer prnt = new Printer();
+		Controller contr = new Controller(registry,cashreg, prnt);
+		new View(contr);
 	}
 }
