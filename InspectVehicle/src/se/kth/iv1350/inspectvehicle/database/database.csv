@@ -1,8 +1,8 @@
 #FORMAT:
 #REGNR; INSPECTIONSNEEDED; INSPECTIONSLOG
 
-ABC123; lights, engine, brakes;;
-DEF456; electricity, tank, tires;;
-GHI789; engine, tires, brakes;;
+ABC123;lights, engine, brakes,;;
+DEF456;electricity, tank, tires,;;
+GHI789;engine, tires, brakes,;;
 
 #END

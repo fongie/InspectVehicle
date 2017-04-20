@@ -19,8 +19,8 @@ public class PrintResultsTest {
 	private ArrayList<String> testItems;
 	private PrintResults printResults;
 	private Printer printer;
-	
 	private ByteArrayOutputStream sysOut;
+	private ByteArrayOutputStream sysOut2;
 
 	@Before
 	public void setUp() throws Exception {
@@ -32,11 +32,8 @@ public class PrintResultsTest {
 		testItems.add("brakes");
 		testResults.add("fail");
 		printer = new Printer();
-		
 		sysOut = new ByteArrayOutputStream();
-		
-
-		printResults = new PrintResults(testItems, testResults, printer);
+		sysOut2 = new ByteArrayOutputStream();
 	}
 
 	@After
@@ -46,24 +43,29 @@ public class PrintResultsTest {
 		printResults = null;
 		printer = null;
 		sysOut = null;
+		sysOut2 = null;
+		System.setOut(System.out);
 	}
 	
-	@Ignore("This fails for some reason, wanted to try the consol printout")
 	@Test
 	public void testPrintResults() {
 	    System.setOut(new PrintStream(sysOut));
 		new PrintResults(testItems, testResults, printer);
-		System.setOut(System.out);
+		
+		System.setOut(new PrintStream(sysOut2));
+		System.out.println(buildTestSheet());
+		
 		boolean expResult = true;
-		boolean result = buildTestSheet().equals(sysOut.toString());
-		assertEquals("PrintResults instantiation doesnt print string equal to the string built in the test", expResult, result);
+		boolean result = sysOut.toString().equals(sysOut2.toString());
+		assertEquals("PrintResults instantiation doesn't print string equal to the string expected", expResult, result);
 	}
 
 	@Test
 	public void testtoString() {
+		printResults = new PrintResults(testItems, testResults, printer);
 		boolean expResult = true;
 		boolean result = buildTestSheet().equals(printResults.toString());
-		assertEquals("PrintResults toString not equal to the expected String in the test.", expResult,result);
+		assertEquals("PrintResults toString not equal to the expected String.", expResult,result);
 	}
 	
 	private String buildTestSheet() {

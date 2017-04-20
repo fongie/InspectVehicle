@@ -19,7 +19,7 @@ public class InspectVehicle {
 	 * @param args No command line arguments are taken.
 	 */
 	public static void main(String[] args) {
-
+	
 		System.out.println("Starting program...");
 		
 		CarRegistry registry = new CarRegistry();

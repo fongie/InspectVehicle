@@ -1,9 +1,18 @@
 package se.kth.iv1350.inspectvehicle.integration;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Represents the information concerning a car that is in the database.
@@ -15,6 +24,7 @@ public class CarInDatabase {
 	private String regNr;
 	private ArrayList<String> inspectionsNeeded;
 	private ArrayList<String> inspectionsLog;
+	private String dataFilePath;
 
 	/**
 	 * Creates an instance of the car in database, containing information
@@ -26,6 +36,13 @@ public class CarInDatabase {
 		this.regNr = regNr;
 		this.inspectionsNeeded = new ArrayList<String>();
 		this.inspectionsLog = new ArrayList<String>();
+		
+		try {
+			URL dateFileUrl = CarInDatabase.class.getResource("/se/kth/iv1350/inspectvehicle/database/database.csv");
+			dataFilePath = dateFileUrl.toURI().toString().replaceFirst("^file:/", "");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		getInformationFromDatabase();
 	}
@@ -46,9 +63,88 @@ public class CarInDatabase {
 		return inspectionsLog;
 	}
 	
-	//HÄR ÄR JAG TODO
+	/**
+	 * Updates the database (currently a .csv file) with the inspections made, the results,
+	 * and leaves failed inspections as "inspections needed" for later.
+	 * Note that the indexes of the performed inspection and its result must match in the lists.
+	 * @param inspectionsPerformed An <code>ArrayList</code> containing the performed inspections.
+	 * @param resultsOfInspections An <code>ArrayList</code> containing the results.
+	 */
 	public void updateDatabase(ArrayList<String> inspectionsPerformed, ArrayList<String> resultsOfInspections) {
+		List<String> lines = getLinesInFile();
+		updateRelevantLine(lines, inspectionsPerformed, resultsOfInspections);
+		writeFile(lines);
+	}
+	
+	private List<String> getLinesInFile() {
+		List<String> lines = null;
+		try {
+			lines = Files.readAllLines(Paths.get(dataFilePath));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return lines;
+	}
+	
+	private void updateRelevantLine(List<String> lines, ArrayList<String> inspectionsPerformed, ArrayList<String> resultsOfInspections) {
+			String line;
+			for (int i = 0; i < lines.size(); i++) {
+				line = lines.get(i);
+				if (!line.startsWith(regNr)) {
+					continue;
+				}
+				String replacedLine = buildNewLineInDatabase(inspectionsPerformed, resultsOfInspections);
+				lines.set(i, replacedLine);
+				}
+	}
+	
+	private void writeFile(List<String> lines) {
+		try {
+			Files.write(Paths.get(dataFilePath), lines);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+	}
+	
+	//format in database is
+	//regnr;inspectionsneeded1,2,3,;logDATE|inspection:result,inspection:result,|DATE|...
+	private String buildNewLineInDatabase(ArrayList<String> inspectionsPerformed, ArrayList<String> resultsOfInspections) {
+		String delimiter = ";";
+		StringBuilder newLine = new StringBuilder();
+		newLine.append(regNr);
+		newLine.append(delimiter);
+
+		for (int i = 0; i < inspectionsPerformed.size(); i++) {
+			String inspection = inspectionsPerformed.get(i);
+			String result = resultsOfInspections.get(i);
+			if (inspectionFailed(result)) {
+				newLine.append(inspection);
+				newLine.append(",");
+			}
+		}
+		newLine.append(delimiter);
 		
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+		LocalDateTime timeInspectionFinished = LocalDateTime.now();
+		newLine.append(dtf.format(timeInspectionFinished));
+		newLine.append("|");
+		for (int j = 0; j < inspectionsPerformed.size(); j++) {
+			newLine.append(inspectionsPerformed.get(j));
+			newLine.append(" : ");
+			newLine.append(resultsOfInspections.get(j));
+			newLine.append(" , ");
+		}
+		newLine.append("|");
+		newLine.append(delimiter);
+		
+		return newLine.toString();
+	}
+	
+	private boolean inspectionFailed (String inspection) {
+		if (inspection.equals("fail")) {
+			return true;
+		}
+		return false;	
 	}
 	
 	private void getInformationFromDatabase() {
