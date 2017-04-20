@@ -15,17 +15,14 @@ public class InspectVehicle {
 
 	/**
 	 * Starts the program, creates important class instances and references them to eachother.
-	 *
 	 * @param args No command line arguments are taken.
 	 */
 	public static void main(String[] args) {
 	
-		System.out.println("Starting program...");
-		
-		CarRegistry registry = new CarRegistry();
-		CashRegister cashreg = new CashRegister();
-		Printer prnt = new Printer();
-		Controller contr = new Controller(registry,cashreg, prnt);
+		CarRegistry carRegistry = new CarRegistry();
+		CashRegister cashRegister = new CashRegister();
+		Printer printer = new Printer();
+		Controller contr = new Controller(carRegistry,cashRegister, printer);
 		new View(contr);
 	}
 }

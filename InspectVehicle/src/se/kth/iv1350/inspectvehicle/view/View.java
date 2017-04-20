@@ -3,9 +3,7 @@ package se.kth.iv1350.inspectvehicle.view;
 
 import java.time.YearMonth;
 import java.util.Scanner;
-
 import se.kth.iv1350.inspectvehicle.controller.Controller;
-import se.kth.iv1350.inspectvehicle.model.NoMoreInspectionsException;
 import se.kth.iv1350.payauth.CreditCard;
 
 /**
@@ -31,6 +29,9 @@ public class View {
 	}
 	
 	private void startHardCodedCommands() {
+		
+		System.out.println("Starting program...");
+
 		
 		contr.beginInspection();
 		System.out.println("Begin new inspection: Display next number and open garage door");
@@ -74,5 +75,7 @@ public class View {
 			}
 			contr.enterResultOfInspection(result);
 		}
+		
+		System.out.println("Database has been updated and inspection is finished. Customer leaves..");
 	}
 }

@@ -39,6 +39,7 @@ public class Controller {
 		grg.nextCustomer();
 	}
 
+
 	/**
 	 * Close the garage door.
 	 */

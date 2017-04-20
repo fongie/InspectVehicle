@@ -1,15 +1,12 @@
 package se.kth.iv1350.inspectvehicle.integration;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
-import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -72,6 +69,7 @@ public class CarInDatabase {
 	 */
 	public void updateDatabase(ArrayList<String> inspectionsPerformed, ArrayList<String> resultsOfInspections) {
 		List<String> lines = getLinesInFile();
+		System.out.println(lines.get(2));
 		updateRelevantLine(lines, inspectionsPerformed, resultsOfInspections);
 		writeFile(lines);
 	}
@@ -160,7 +158,7 @@ public class CarInDatabase {
 	}
 	
 	private void writeToInspectionsLog(String vehicleData) {
-		String inspectionsLogSplitoff = vehicleData.split(";")[1];
+		String inspectionsLogSplitoff = vehicleData.split(";")[2];
 		String[] logItems = inspectionsLogSplitoff.split(",");
 		for (String item : logItems) {
 				inspectionsLog.add(item);
