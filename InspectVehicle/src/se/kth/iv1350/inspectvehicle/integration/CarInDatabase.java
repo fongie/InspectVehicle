@@ -37,6 +37,9 @@ public class CarInDatabase {
 		try {
 			URL dateFileUrl = CarInDatabase.class.getResource("/se/kth/iv1350/inspectvehicle/database/database.csv");
 			dataFilePath = dateFileUrl.toURI().toString().replaceFirst("^file:/", "");
+			if (dataFilePath.startsWith("home")) { //for linux
+				dataFilePath = "/" + dataFilePath;
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -69,7 +72,7 @@ public class CarInDatabase {
 	 */
 	public void updateDatabase(ArrayList<String> inspectionsPerformed, ArrayList<String> resultsOfInspections) {
 		List<String> lines = getLinesInFile();
-		System.out.println(lines.get(2));
+		//System.out.println(lines.get(2));
 		updateRelevantLine(lines, inspectionsPerformed, resultsOfInspections);
 		writeFile(lines);
 	}
