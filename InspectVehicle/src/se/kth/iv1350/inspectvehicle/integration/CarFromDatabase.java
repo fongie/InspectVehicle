@@ -16,7 +16,7 @@ import java.util.List;
  * @author Max Körlinge
  *
  */
-public class CarInDatabase {
+public class CarFromDatabase {
 	
 	private String regNr;
 	private ArrayList<String> inspectionsNeeded;
@@ -29,14 +29,14 @@ public class CarInDatabase {
 	 * when the inspection is finished.
 	 * @param regNr The car's registration number.
 	 */
-	public CarInDatabase(String regNr) {
+	public CarFromDatabase(String regNr) {
 		this.regNr = regNr;
 		this.inspectionsNeeded = new ArrayList<String>();
 		this.inspectionsLog = new ArrayList<String>();
 		
 		try {
-			URL dateFileUrl = CarInDatabase.class.getResource("/se/kth/iv1350/inspectvehicle/database/database.csv");
-			dataFilePath = dateFileUrl.toURI().toString().replaceFirst("^file:/", "");
+			URL dataFileUrl = CarFromDatabase.class.getResource("/se/kth/iv1350/inspectvehicle/database/database.csv");
+			dataFilePath = dataFileUrl.toURI().toString().replaceFirst("^file:/", "");
 			if (dataFilePath.startsWith("home")) { //for linux
 				dataFilePath = "/" + dataFilePath;
 			}
@@ -72,7 +72,6 @@ public class CarInDatabase {
 	 */
 	public void updateDatabase(ArrayList<String> inspectionsPerformed, ArrayList<String> resultsOfInspections) {
 		List<String> lines = getLinesInFile();
-		//System.out.println(lines.get(2));
 		updateRelevantLine(lines, inspectionsPerformed, resultsOfInspections);
 		writeFile(lines);
 	}
@@ -150,14 +149,14 @@ public class CarInDatabase {
 	
 	private void getInformationFromDatabase() {
 
-			InputStream inpStream = CarInDatabase.class.getResourceAsStream("/se/kth/iv1350/inspectvehicle/database/database.csv");
-			BufferedReader databaseReader = new BufferedReader(new InputStreamReader(inpStream));
-			
-			//if regnr is valid or not is checked earlier in the chain, dont need it here
-			String vehicleData = findVehicleInDatabase(databaseReader);
-			
-			writeToInspectionsNeeded(vehicleData);
-			writeToInspectionsLog(vehicleData);
+		InputStream inpStream = CarFromDatabase.class.getResourceAsStream("/se/kth/iv1350/inspectvehicle/database/database.csv");
+		BufferedReader databaseReader = new BufferedReader(new InputStreamReader(inpStream));
+		
+		//if regnr is valid or not is checked earlier in the chain, dont need it here
+		String vehicleData = findVehicleInDatabase(databaseReader);
+		
+		writeToInspectionsNeeded(vehicleData);
+		writeToInspectionsLog(vehicleData);
 	}
 	
 	private void writeToInspectionsLog(String vehicleData) {

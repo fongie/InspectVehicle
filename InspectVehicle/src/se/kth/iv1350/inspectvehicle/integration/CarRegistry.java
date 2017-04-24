@@ -1,5 +1,11 @@
 package se.kth.iv1350.inspectvehicle.integration;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+
 /**
  * The registry containing a list of all registration numbers present in the database.
  * @author Max Körlinge
@@ -7,16 +13,26 @@ package se.kth.iv1350.inspectvehicle.integration;
  */
 public class CarRegistry {
 
-	private String[] carsInReg;
+	private ArrayList<String> carsInDatabase;
+	private BufferedReader databaseReader;
 
 	/**
-	 * Creates the CarRegistry containing the cars in the database. Needs a method to actually fetch these from database.
+	 * Creates the CarRegistry containing the registration numbers present in the database.
 	 */
 	public CarRegistry() {
-		//TODO make text file in database, read it from here and input reg nrs into casrInReg
-		
-		String[] cars= {"ABC123", "DEF456","GHI789"};
-		carsInReg = cars;
+		carsInDatabase = new ArrayList<String>();
+		try {
+		databaseReader = openDatabaseFileAsStream();
+		putRegNumbersInList();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+			databaseReader.close();
+			} catch(IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	/**
@@ -25,11 +41,30 @@ public class CarRegistry {
 	 * @return True if it exists, false if it does not
 	 */
 	public boolean doesNrExist(String specificRegNr) {
-		for (String carRegNr : carsInReg) {
-			if (specificRegNr.equals(carRegNr)) {
+		for (int i = 0; i < carsInDatabase.size(); i++) {
+			if(!carsInDatabase.get(i).equals(specificRegNr)) {
+				continue;
+			} else {
 				return true;
 			}
 		}
 		return false;
+	}
+	
+	private void putRegNumbersInList() {
+		String nextLine;
+		try {
+			while ((nextLine = databaseReader.readLine()) != null) {
+				String regNr = nextLine.split(";")[0];
+				carsInDatabase.add(regNr);
+				}
+			} catch (Exception e) {
+			e.printStackTrace();
+			}
+	}
+
+	private BufferedReader openDatabaseFileAsStream() {
+			InputStream inpStream = CarRegistry.class.getResourceAsStream("/se/kth/iv1350/inspectvehicle/database/database.csv");
+			return new BufferedReader(new InputStreamReader(inpStream));
 	}
 }

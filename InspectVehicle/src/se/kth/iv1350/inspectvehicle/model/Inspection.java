@@ -3,7 +3,7 @@ package se.kth.iv1350.inspectvehicle.model;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import se.kth.iv1350.inspectvehicle.integration.CarInDatabase;
+import se.kth.iv1350.inspectvehicle.integration.CarFromDatabase;
 import se.kth.iv1350.inspectvehicle.integration.Printer;
 
 /**
@@ -16,7 +16,7 @@ public class Inspection {
 
 	private String currentVehicleRegnr;
 	private Printer printer;
-	private CarInDatabase currentCar;
+	private CarFromDatabase currentCar;
 	private ArrayList<String> inspectionsToPerform;
 	private Iterator<String> inspectionsIterator;
 	private ArrayList<String> resultsOfInspection;
@@ -32,7 +32,7 @@ public class Inspection {
 	public Inspection(String regNr, Printer printer) {
 		this.currentVehicleRegnr = regNr;
 		this.printer = printer;
-		currentCar = new CarInDatabase(currentVehicleRegnr);
+		currentCar = new CarFromDatabase(currentVehicleRegnr);
 		inspectionsToPerform = currentCar.getInspectionsNeeded();
 		inspectionsIterator = inspectionsToPerform.iterator();
 		resultsOfInspection = new ArrayList<String>();

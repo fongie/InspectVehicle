@@ -9,7 +9,6 @@ import java.util.ArrayList;
 
 import org.junit.*;
 
-import se.kth.iv1350.inspectvehicle.model.CashPayment;
 import se.kth.iv1350.inspectvehicle.model.CreditCardPayment;
 import se.kth.iv1350.inspectvehicle.model.PrintResults;
 import se.kth.iv1350.inspectvehicle.model.Receipt;
@@ -38,7 +37,6 @@ public class PrinterTest {
 		inspResults.add("pass");
 		inspResults.add("fail");
 		printres = new PrintResults(inspPerformed, inspResults, printer);
-		
 	}
 
 	@After
