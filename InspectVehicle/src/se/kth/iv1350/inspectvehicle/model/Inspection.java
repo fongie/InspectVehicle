@@ -66,6 +66,7 @@ public class Inspection {
 	 * Add the result of an inspection, either "pass" or "fail".
 	 * Note that the result at index i in this list will correspond to index i in the
 	 * list of inspections to make.
+	 * Wrong input must be checked at method call, it is not checked by the method itself.
 	 * @param result The result to be written.
 	 */
 	public void addResult(String result) {
@@ -76,13 +77,10 @@ public class Inspection {
 	 * Finish the inspection, that means update the database with the results and print a results sheet.
 	 */
 	public void finishInspection() {
-		//TODO write test that tests if PrintResults call, inspectoinsntoperform and resultsofinspection are of same size
 		currentCar.updateDatabase(inspectionsToPerform, resultsOfInspection);
 		new PrintResults(inspectionsToPerform, resultsOfInspection, printer);
 	}
 	
-	//each part of the inspection costs 500, 
-	//could implement enum to handle different costs for different parts
 	private int calculateCost() {
 		int totalCost = 0;
 		for (int i = 0; i < inspectionsToPerform.size(); i++) {

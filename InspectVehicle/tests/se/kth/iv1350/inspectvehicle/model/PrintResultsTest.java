@@ -8,7 +8,6 @@ import java.util.ArrayList;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import se.kth.iv1350.inspectvehicle.integration.Printer;
@@ -39,6 +38,7 @@ public class PrintResultsTest {
 	@After
 	public void tearDown() throws Exception {
 		testResults = null;
+		
 		testItems = null;
 		printResults = null;
 		printer = null;

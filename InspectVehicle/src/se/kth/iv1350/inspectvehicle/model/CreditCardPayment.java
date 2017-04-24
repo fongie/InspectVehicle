@@ -11,7 +11,6 @@ import se.kth.iv1350.payauth.*;
 public class CreditCardPayment {
 	private int cost;
 	private Receipt receipt;
-	//private Printer printer;
 	
 	/**
 	 * Creates a credit card payment instance, which handles authorizing

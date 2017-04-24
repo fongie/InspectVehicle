@@ -84,9 +84,10 @@ public class Controller {
 	 * Get what item or task to inspect next on the vehicle.
 	 * If nothing more is to be inspected, the method <code>finishInspection()</code>
 	 * in the current instance of the <code>Inspection</code> class is started.
-	 * @return The item or task as a string.
+	 * @return The item or task as a string, or "END LOOP" when inspections are finished.
 	 */
 	public String whatInspectNext() {
+		//TODO fix better way of ending loop
 		try {
 			return currentInspection.toInspectNext();
 		} catch (NoMoreInspectionsException e) {

@@ -73,7 +73,7 @@ public class CarFromDatabase {
 	public void updateDatabase(ArrayList<String> inspectionsPerformed, ArrayList<String> resultsOfInspections) {
 		List<String> lines = getLinesInFile();
 		updateRelevantLine(lines, inspectionsPerformed, resultsOfInspections);
-		writeFile(lines);
+		writeToFile(lines);
 	}
 	
 	private List<String> getLinesInFile() {
@@ -98,7 +98,7 @@ public class CarFromDatabase {
 				}
 	}
 	
-	private void writeFile(List<String> lines) {
+	private void writeToFile(List<String> lines) {
 		try {
 			Files.write(Paths.get(dataFilePath), lines);
 			} catch (Exception e) {
