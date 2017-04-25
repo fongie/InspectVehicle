@@ -17,6 +17,10 @@ public class Controller {
 	private Garage grg;
 	private Printer printer;
 	private Inspection currentInspection;
+	
+	/**
+	 * Constant String used to end loops depending on String return values
+	 */
 	public static final String LOOPENDER = "END LOOP";
 	
 	/**
