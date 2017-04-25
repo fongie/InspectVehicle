@@ -111,19 +111,20 @@ public class CarFromDatabase {
 	private String buildNewLineInDatabase(ArrayList<String> inspectionsPerformed, ArrayList<String> resultsOfInspections) {
 		String delimiter = ";";
 		StringBuilder newLine = new StringBuilder();
+		
 		newLine.append(regNr);
 		newLine.append(delimiter);
 
-		for (int i = 0; i < inspectionsPerformed.size(); i++) {
-			String inspection = inspectionsPerformed.get(i);
-			String result = resultsOfInspections.get(i);
-			if (inspectionFailed(result)) {
-				newLine.append(inspection);
-				newLine.append(",");
-			}
-		}
+		reAddFailedInspections(newLine, inspectionsPerformed, resultsOfInspections);
 		newLine.append(delimiter);
 		
+		addResultsToLog(newLine, inspectionsPerformed, resultsOfInspections);
+		newLine.append(delimiter);
+		
+		return newLine.toString();
+	}
+	
+	private void addResultsToLog(StringBuilder newLine, ArrayList<String> inspectionsPerformed, ArrayList<String> resultsOfInspections) {
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 		LocalDateTime timeInspectionFinished = LocalDateTime.now();
 		newLine.append(dtf.format(timeInspectionFinished));
@@ -135,9 +136,17 @@ public class CarFromDatabase {
 			newLine.append(" , ");
 		}
 		newLine.append("|");
-		newLine.append(delimiter);
-		
-		return newLine.toString();
+	}
+	
+	private void reAddFailedInspections(StringBuilder newLine, ArrayList<String> inspectionsPerformed, ArrayList<String> resultsOfInspections) {
+		for (int i = 0; i < inspectionsPerformed.size(); i++) {
+			String inspection = inspectionsPerformed.get(i);
+			String result = resultsOfInspections.get(i);
+			if (inspectionFailed(result)) {
+				newLine.append(inspection);
+				newLine.append(",");
+			}
+		}
 	}
 	
 	private boolean inspectionFailed (String inspection) {
@@ -152,7 +161,6 @@ public class CarFromDatabase {
 		InputStream inpStream = CarFromDatabase.class.getResourceAsStream("/se/kth/iv1350/inspectvehicle/database/database.csv");
 		BufferedReader databaseReader = new BufferedReader(new InputStreamReader(inpStream));
 		
-		//if regnr is valid or not is checked earlier in the chain, dont need it here
 		String vehicleData = findVehicleInDatabase(databaseReader);
 		
 		writeToInspectionsNeeded(vehicleData);

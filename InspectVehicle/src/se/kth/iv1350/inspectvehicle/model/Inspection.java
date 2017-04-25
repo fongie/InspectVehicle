@@ -38,14 +38,6 @@ public class Inspection {
 		resultsOfInspection = new ArrayList<String>();
 		cost = calculateCost();
 	}
-		
-	/**
-	 * Get the total cost of the inspection.
-	 * @return The cost of the inspection to be paid by customer.
-	 */
-	public int getCost() {
-		return cost;
-	}
 	
 	/**
 	 * Get the next task to inspect on the current vehicle. Iterates through the
@@ -78,6 +70,14 @@ public class Inspection {
 	public void finishInspection() {
 		currentCar.updateDatabase(inspectionsToPerform, resultsOfInspection);
 		new PrintResults(inspectionsToPerform, resultsOfInspection, printer);
+	}
+	
+	/**
+	 * Get the total cost of the inspection.
+	 * @return The cost of the inspection to be paid by customer.
+	 */
+	public int getCost() {
+		return cost;
 	}
 	
 	private int calculateCost() {

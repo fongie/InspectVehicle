@@ -22,8 +22,10 @@ public class CarRegistry {
 	public CarRegistry() {
 		carsInDatabase = new ArrayList<String>();
 		try {
+			
 		databaseReader = openDatabaseFileAsStream();
 		putRegNumbersInList();
+		
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
