@@ -1,6 +1,5 @@
 package se.kth.iv1350.inspectvehicle.view;
 
-
 import java.time.YearMonth;
 import java.util.Scanner;
 import se.kth.iv1350.inspectvehicle.controller.Controller;
@@ -31,31 +30,38 @@ public class View {
 	private void startHardCodedCommands() {
 		
 		System.out.println("Starting program...");
-
+		
+		inputScanner.nextLine();
 		
 		contr.beginInspection();
 		System.out.println("Begin new inspection: Display next number and open garage door");
+		
+		inputScanner.nextLine();
 
 		contr.closeDoor();
 		System.out.println("Closing garage door.");
+		
+		inputScanner.nextLine();
 
 		String sampleRegNr = "DEF456";
 		System.out.println("Inputting customer car with registration number " + sampleRegNr + " into the system.");
 		int cost = contr.enterRegNr(sampleRegNr);
 		System.out.println("The cost of the inspection is: " + cost + ".");
 		
-		System.out.println("User wishes to pay by Credit Card. Inputting credit card details..");
+		inputScanner.nextLine();
+
 		
+		System.out.println("User wishes to pay by Credit Card. Inputting credit card details..");
 		System.out.println("Receipt:\n");
 		CreditCard customerCC = new CreditCard(0, "1234-5678-1234", "Fake Fakesson", YearMonth.of(2020, 10), 500);
 		contr.payByCC(customerCC);
 		
-		//this loops forever because our program's requirements actually end
-		//but we could use a restart method in reality
+		inputScanner.nextLine();
+		
 		System.out.println("Payment handled. Starting inspection process");
 		while (true) {
 			String toInspect = contr.whatInspectNext();
-			if (toInspect.equals("END LOOP")) {
+			if (toInspect.equals(Controller.LOOPENDER)) {
 				break;
 			}
 			System.out.println("Next task to inspect is: " +
@@ -75,7 +81,6 @@ public class View {
 			}
 			contr.enterResultOfInspection(result);
 		}
-		
 		System.out.println("Database has been updated and inspection is finished. Customer leaves..");
 	}
 }

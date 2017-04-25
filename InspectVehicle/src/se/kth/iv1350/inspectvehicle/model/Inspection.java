@@ -57,8 +57,7 @@ public class Inspection {
 		if (inspectionsIterator.hasNext()) {
 			return inspectionsIterator.next();
 		} else {
-			throw new NoMoreInspectionsException("There are no more inspections to make.\n" +
-												 "Finishing up...");
+			throw new NoMoreInspectionsException("There are no more inspections to make.\n");
 		}
 	}
 	

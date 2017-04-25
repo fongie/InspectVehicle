@@ -17,6 +17,7 @@ public class Controller {
 	private Garage grg;
 	private Printer printer;
 	private Inspection currentInspection;
+	public static final String LOOPENDER = "END LOOP";
 	
 	/**
 	 * Starts an instance of the <code>Controller</code>, which handles all calls from the View to the Model.
@@ -84,16 +85,15 @@ public class Controller {
 	 * Get what item or task to inspect next on the vehicle.
 	 * If nothing more is to be inspected, the method <code>finishInspection()</code>
 	 * in the current instance of the <code>Inspection</code> class is started.
-	 * @return The item or task as a string, or "END LOOP" when inspections are finished.
+	 * @return The item or task as a string, or <code>Controller.LOOPENDER</code> when inspections are finished.
 	 */
 	public String whatInspectNext() {
-		//TODO fix better way of ending loop
 		try {
 			return currentInspection.toInspectNext();
 		} catch (NoMoreInspectionsException e) {
 			System.out.println(e.getMessage());
 			currentInspection.finishInspection();
-			return "END LOOP";
+			return LOOPENDER;
 		}
 	}
 	

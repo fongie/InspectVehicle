@@ -45,9 +45,4 @@ public class CarFromDatabaseTest {
 		assertTrue("inspectionsNeeded fetched from database is null on existing testcar", dataHasBeenFetched);
 	}
 
-	@Ignore("Not yet implemented")
-	@Test
-	public void testUpdateDatabase() {
-	}
-
 }
