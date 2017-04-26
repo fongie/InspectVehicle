@@ -87,26 +87,30 @@ public class Controller {
 	
 	/**
 	 * Get what item or task to inspect next on the vehicle.
-	 * If nothing more is to be inspected, the method <code>finishInspection()</code>
-	 * in the current instance of the <code>Inspection</code> class is started.
-	 * @return The item or task as a string, or <code>Controller.LOOPENDER</code> when inspections are finished.
+	 * @return The item or task as a string.
 	 */
 	public String whatInspectNext() {
-		try {
-			return currentInspection.toInspectNext();
-		} catch (NoMoreInspectionsException e) {
-			System.out.println(e.getMessage());
-			currentInspection.finishInspection();
-			return LOOPENDER;
-		}
+		return currentInspection.toInspectNext();
+	}
+	
+	/**
+	 * Check if there are more inspection tasks in the list of inspections to make.
+	 * @return True if there are inspections left, false if not.
+	 */
+	public boolean hasMoreInspectionsToMake() {
+		return currentInspection.hasMoreInspectionsToMake();
 	}
 	
 	/**
 	 * Enter the result of the current item being inspected.
+	 * If this is the last of the tasks being inspected, also finish the inspection.
 	 * @param result The result. Either "pass" or "fail".
 	 */
 	public void enterResultOfInspection(String result) {
 			currentInspection.addResult(result);
+			if (!currentInspection.hasMoreInspectionsToMake()) {
+				currentInspection.finishInspection();
+			}
 	}
 }
 

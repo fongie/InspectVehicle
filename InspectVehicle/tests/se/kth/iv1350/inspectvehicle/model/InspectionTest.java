@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import se.kth.iv1350.inspectvehicle.integration.Printer;
@@ -31,13 +32,20 @@ public class InspectionTest {
 	}
 	
 	@Test
+	public void testhasMoreInspectionsToMake() {
+		boolean result = testInspection.hasMoreInspectionsToMake();
+		assertTrue("hasMoreInspectionsToMake return false on first item", result);
+	}
+	
+	@Ignore("This exception was removed from the program")
+	@Test
 	public void testToInspextNoMoreInspections() {
 		for(int i = 0; i < 4; i++) {
 			try {
 				testInspection.toInspectNext();
 			} catch (Exception e) {
-				boolean result = e instanceof NoMoreInspectionsException;
-				assertTrue("Does not throw NoMoreInspectionsException when all inspections are done", result);
+				//boolean result = e instanceof NoMoreInspectionsException;
+				//assertTrue("Does not throw NoMoreInspectionsException when all inspections are done", result);
 				return;
 			}
 		}

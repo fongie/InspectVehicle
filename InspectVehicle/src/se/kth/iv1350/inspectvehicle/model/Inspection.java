@@ -41,16 +41,20 @@ public class Inspection {
 	
 	/**
 	 * Get the next task to inspect on the current vehicle. Iterates through the
-	 * inspections needed until finished
+	 * inspections needed. If this array has more items or not is not checked here but
+	 * must be checked in the caller, using <code>hasMoreInspectionsToMake()</code>
 	 * @return The next item or task to inspect, as a String
-	 * @throws NoMoreInspectionsException When the inspection is finished (no more tasks).
 	 */
-	public String toInspectNext() throws NoMoreInspectionsException {
-		if (inspectionsIterator.hasNext()) {
-			return inspectionsIterator.next();
-		} else {
-			throw new NoMoreInspectionsException("There are no more inspections to make.\n");
-		}
+	public String toInspectNext() {
+		return inspectionsIterator.next();
+	}
+	
+	/**
+	 * Check if there are more inspection tasks in the list of inspections to make.
+	 * @return True if there are inspections left, false if not.
+	 */
+	public boolean hasMoreInspectionsToMake() {
+		return inspectionsIterator.hasNext();
 	}
 	
 	/**

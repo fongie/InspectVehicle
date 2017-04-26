@@ -59,16 +59,12 @@ public class View {
 		inputScanner.nextLine();
 		
 		System.out.println("Payment handled. Starting inspection process");
-		while (true) {
+		while (contr.hasMoreInspectionsToMake()) {
 			String toInspect = contr.whatInspectNext();
-			if (toInspect.equals(Controller.LOOPENDER)) {
-				break;
-			}
 			System.out.println("Next task to inspect is: " +
 								toInspect +
 								"\n"
 								);
-
 			String result;
 			while (true) {
 				System.out.println("Input result ('pass' or 'fail'):");
