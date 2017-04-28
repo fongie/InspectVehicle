@@ -3,6 +3,7 @@ package se.kth.iv1350.inspectvehicle.controller;
 import se.kth.iv1350.garage.Garage;
 import se.kth.iv1350.inspectvehicle.integration.CarRegistry;
 import se.kth.iv1350.inspectvehicle.integration.Printer;
+import se.kth.iv1350.inspectvehicle.integration.RegistrationNumberNotFoundException;
 import se.kth.iv1350.inspectvehicle.model.*;
 import se.kth.iv1350.payauth.CreditCard;
 
@@ -56,18 +57,12 @@ public class Controller {
 	 * User inputs the registration number of a car. The system returns the cost of the inspection of this car, if the registration number exists in the database.
 	 * @param vehicleRegNr The car's registration number
 	 * @return The cost of the upcoming inspection.
+	 * @throws RegistrationNumberNotFoundException If registration number is not found in database.
 	 */
-	public int enterRegNr(String vehicleRegNr) {
-		while(true) {
-			boolean numberExists = carRegistry.doesNrExist(vehicleRegNr);
-			if (numberExists) {
-				break;
-			} else {
-				//we do not code alternate flows, in this program, this always exist
-			}
-		}
-		currentInspection = new Inspection(vehicleRegNr, printer);
-		return currentInspection.getCost();
+	public int enterRegNr(String vehicleRegNr) throws RegistrationNumberNotFoundException {
+			carRegistry.doesNrExist(vehicleRegNr);
+			currentInspection = new Inspection(vehicleRegNr, printer);
+			return currentInspection.getCost();
 	}
 	
 	/**

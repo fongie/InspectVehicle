@@ -40,11 +40,12 @@ public class CarFromDatabase {
 			if (dataFilePath.startsWith("home")) { //for linux
 				dataFilePath = "/" + dataFilePath;
 			}
+			
+			getInformationFromDatabase();
+
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-		
-		getInformationFromDatabase();
+		}		
 	}
 	
 	/**

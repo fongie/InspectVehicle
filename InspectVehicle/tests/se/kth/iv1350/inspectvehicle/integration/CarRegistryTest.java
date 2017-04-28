@@ -21,7 +21,11 @@ public class CarRegistryTest {
 
 	@Test
 	public void testDoesNrExist() {
+		try {
 		boolean result = carReg.doesNrExist("TEST123");
 		assertTrue("doesNrExist does not find test car", result);
+		} catch (RegistrationNumberNotFoundException e) {
+			fail("Exception thrown cause number for testcar is not found in database");
+		}
 	}
 }

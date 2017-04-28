@@ -14,6 +14,7 @@ import org.junit.Test;
 
 import se.kth.iv1350.inspectvehicle.integration.CarRegistry;
 import se.kth.iv1350.inspectvehicle.integration.Printer;
+import se.kth.iv1350.inspectvehicle.integration.RegistrationNumberNotFoundException;
 import se.kth.iv1350.inspectvehicle.model.CashRegister;
 import se.kth.iv1350.inspectvehicle.model.CreditCardPayment;
 import se.kth.iv1350.inspectvehicle.model.Inspection;
@@ -41,9 +42,13 @@ public class ControllerTest {
 
 	@Test
 	public void testEnterRegNr() {
-		int cost = cntr.enterRegNr("TEST123");
-		int expectedCost = 1500; //if cost per task is 500
-		assertEquals("enterRegNr returns wrong cost", cost, expectedCost);
+		try {
+			int cost = cntr.enterRegNr("TEST123");
+			int expectedCost = 1500; //if cost per task is 500
+			assertEquals("enterRegNr returns wrong cost", cost, expectedCost);
+		} catch (RegistrationNumberNotFoundException e) {
+			fail("Cannot find regnr in database");
+		}
 	}
 
 	@Test
@@ -65,16 +70,21 @@ public class ControllerTest {
 
 	@Test
 	public void testWhatInspectNextFirstTask() {
-		Inspection insp = new Inspection("TEST123", printer);
 		Controller cntr2 = new Controller(new CarRegistry(), new CashRegister(), printer);
-		cntr2.enterRegNr("TEST123");
 		
 		try {
+			cntr2.enterRegNr("TEST123");
+		} catch (RegistrationNumberNotFoundException e) {
+			fail("Controller cannot find registration number for testcar in database");
+		}
+		
+		try {
+			Inspection insp = new Inspection("TEST123", printer);
 			boolean result = cntr2.whatInspectNext().equals(insp.toInspectNext());
 			assertTrue("Controller does not return first task to inspect equal to what Inspection class does", result);
 		} catch (Exception e) {
 			e.printStackTrace();
-			fail("Controller or Inspections inspectNext throw exception on first item on testcar");
+			fail("Controller or Inspections inspectNext throw exception fetching first item on testcar");
 		}
 	}
 	
