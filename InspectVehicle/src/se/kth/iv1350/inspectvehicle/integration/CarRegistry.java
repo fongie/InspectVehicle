@@ -42,7 +42,7 @@ public class CarRegistry {
 	 * @param specificRegNr The registration number we are checking for
 	 * @return True if it exists, false if it does not
 	 */
-	public boolean doesNrExist(String specificRegNr) {
+	public boolean doesNrExist(String specificRegNr) throws RegistrationNumberNotFoundException {
 		for (int i = 0; i < carsInDatabase.size(); i++) {
 			if(!carsInDatabase.get(i).equals(specificRegNr)) {
 				continue;
