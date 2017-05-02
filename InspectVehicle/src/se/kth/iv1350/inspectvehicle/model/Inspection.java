@@ -49,18 +49,17 @@ public class Inspection {
 		inspectionObservers.add(obs);
 	}
 	
-	private void notifyObservers(String result) {
-		if (result.equals("pass")) {
+	private void notifyObservers() {
 			for (InspectionObserver obs : inspectionObservers) {
-				obs.newPassedInspection();
+				obs.newInspectionResult(getLastItemInList(resultsOfInspection));
 			}
-		} else {
-			for (InspectionObserver obs : inspectionObservers) {
-				obs.newFailedInspection();
-			}
-			
-		}
 	}
+	
+	private String getLastItemInList(ArrayList<String> list) {
+		String lastItem = list.get(list.size() - 1);
+		return lastItem;
+	}
+	
 	/**
 	 * Get the next task to inspect on the current vehicle. Iterates through the
 	 * inspections needed. If this array has more items or not is not checked here but
@@ -88,6 +87,7 @@ public class Inspection {
 	 */
 	public void addResult(String result) {
 		resultsOfInspection.add(result);
+		//notifyObservers();
 	}
 	
 	/**

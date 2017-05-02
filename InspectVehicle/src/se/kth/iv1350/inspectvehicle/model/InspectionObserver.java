@@ -6,8 +6,6 @@ package se.kth.iv1350.inspectvehicle.model;
  */
 public interface InspectionObserver {
 
-	void newFailedInspection();
-		
-	void newPassedInspection();
+	void newInspectionResult(String result);
 		
 }

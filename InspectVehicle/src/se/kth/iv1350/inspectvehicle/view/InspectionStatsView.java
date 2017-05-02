@@ -19,15 +19,14 @@ class InspectionStatsView implements InspectionObserver {
 	}
 
 	@Override
-	public void newFailedInspection() {
-		numberOfFailedInspections++;
-		printCurrentState();
-	}
-
-	@Override
-	public void newPassedInspection() {
-		numberOfPassedInspections++;
-		printCurrentState();
+	public void newInspectionResult(String result) {
+		if (result.equals("pass")) {
+			numberOfPassedInspections++;
+			printCurrentState();
+		} else {
+			numberOfFailedInspections++;
+			printCurrentState();
+		}
 	}
 	
 	private void printCurrentState() {
