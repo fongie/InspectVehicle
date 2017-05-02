@@ -19,11 +19,6 @@ public class Controller {
 	private Inspection currentInspection;
 	
 	/**
-	 * Constant String used to end loops depending on String return values
-	 */
-	public static final String LOOPENDER = "END LOOP";
-	
-	/**
 	 * Starts an instance of the <code>Controller</code>, which handles all calls from the View to the Model.
 	 * 
 	 * @param carRegistry An instance of the registry containing all registration numbers.
