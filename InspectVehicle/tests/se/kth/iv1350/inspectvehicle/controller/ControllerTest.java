@@ -30,6 +30,7 @@ public class ControllerTest {
 	public void setUp() throws Exception {
 		printer = new Printer();
 		cntr = new Controller(new CarRegistry(), new CashRegister(), printer);
+
 		testCost = 1500;
 	}
 

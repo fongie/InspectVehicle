@@ -1,5 +1,8 @@
 package se.kth.iv1350.inspectvehicle.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import se.kth.iv1350.garage.Garage;
 import se.kth.iv1350.inspectvehicle.integration.CarRegistry;
 import se.kth.iv1350.inspectvehicle.integration.Printer;
@@ -18,6 +21,7 @@ public class Controller {
 	private Garage grg;
 	private Printer printer;
 	private Inspection currentInspection;
+	private List<InspectionObserver> inspectionObservers = new ArrayList<>();
 	
 	/**
 	 * Starts an instance of the <code>Controller</code>, which handles all calls from the View to the Model.
@@ -34,12 +38,20 @@ public class Controller {
 	}
 	
 	/**
+	 * Add an Observer implementing the <code>InspectionObserver</code> interface
+	 * to be added to all future inspections started.
+	 * @param obs
+	 */
+	public void addInspectionObserver(InspectionObserver obs) {
+		inspectionObservers.add(obs);
+	}
+
+	/**
 	 * Instruct the <code>Garage</code> to display next customer's queue number and open the garage door.
 	 */
 	public void beginInspection() {
 		grg.nextCustomer();
 	}
-
 
 	/**
 	 * Close the garage door.
@@ -57,6 +69,12 @@ public class Controller {
 	public int enterRegNr(String vehicleRegNr) throws RegistrationNumberNotFoundException {
 			carRegistry.doesNrExist(vehicleRegNr);
 			currentInspection = new Inspection(vehicleRegNr, printer);
+
+			boolean thereAreObservers = !inspectionObservers.isEmpty();
+			if (thereAreObservers) {
+				currentInspection.addInspectionObservers(inspectionObservers);
+			}
+
 			return currentInspection.getCost();
 	}
 	

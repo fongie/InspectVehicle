@@ -39,8 +39,17 @@ public class Inspection {
 		inspectionsIterator = inspectionsToPerform.iterator();
 		resultsOfInspection = new ArrayList<String>();
 		cost = calculateCost();
+		inspectionObservers = new ArrayList<InspectionObserver>();
 	}
 	
+	/**
+	 * Add a list of observers that are updated when this object changes state.
+	 * @param listOfObservers The list of observers to be added
+	 */
+	public void addInspectionObservers(List<InspectionObserver> listOfObservers) {
+		inspectionObservers.addAll(listOfObservers);
+	}
+
 	/**
 	 * Add an observer to the list of observers that are updated when this object changes state.
 	 * @param obs The observer to be added.
@@ -87,7 +96,7 @@ public class Inspection {
 	 */
 	public void addResult(String result) {
 		resultsOfInspection.add(result);
-		//notifyObservers();
+		notifyObservers();
 	}
 	
 	/**

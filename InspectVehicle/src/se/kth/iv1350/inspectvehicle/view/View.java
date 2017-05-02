@@ -25,6 +25,9 @@ public class View {
 		this.contr = contr;
 		this.inputScanner = new Scanner(System.in);
 		
+		InspectionStatsView statsDisplay = new InspectionStatsView();
+		contr.addInspectionObserver(statsDisplay);
+		
 		startHardCodedCommands();
 	}
 	
@@ -84,10 +87,14 @@ public class View {
 
 			System.out.println("Press any key to start a new inspection");
 			inputScanner.nextLine();
-			new View(this.contr);
+			startAnew();
 			
 		} catch (RegistrationNumberNotFoundException e) {
 			System.out.println(e.getMessage());
 		}
+	}
+	
+	private void startAnew() {
+		startHardCodedCommands();
 	}
 }
