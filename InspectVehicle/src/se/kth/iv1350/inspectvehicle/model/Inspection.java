@@ -2,6 +2,7 @@ package se.kth.iv1350.inspectvehicle.model;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import se.kth.iv1350.inspectvehicle.integration.CarFromDatabase;
 import se.kth.iv1350.inspectvehicle.integration.Printer;
@@ -14,6 +15,7 @@ import se.kth.iv1350.inspectvehicle.integration.Printer;
  */
 public class Inspection {
 
+	private List<InspectionObserver> inspectionObservers;
 	private String currentVehicleRegnr;
 	private Printer printer;
 	private CarFromDatabase currentCar;
@@ -39,6 +41,25 @@ public class Inspection {
 		cost = calculateCost();
 	}
 	
+	/**
+	 * Add an observer to the list of observers that are updated when this object changes state.
+	 * @param obs The observer to be added.
+	 */
+	public void addInspectionObserver(InspectionObserver obs) {
+		inspectionObservers.add(obs);
+	}
+	
+	//TODO notify them!
+	private void notifyObservers(String result) {
+		if (result.equals("pass")) {
+			//addpassedinspection
+			
+		} else {
+			//addfailedinspection
+			
+		}
+		
+	}
 	/**
 	 * Get the next task to inspect on the current vehicle. Iterates through the
 	 * inspections needed. If this array has more items or not is not checked here but
