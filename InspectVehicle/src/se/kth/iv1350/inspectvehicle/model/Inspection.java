@@ -49,16 +49,17 @@ public class Inspection {
 		inspectionObservers.add(obs);
 	}
 	
-	//TODO notify them!
 	private void notifyObservers(String result) {
 		if (result.equals("pass")) {
-			//addpassedinspection
-			
+			for (InspectionObserver obs : inspectionObservers) {
+				obs.newPassedInspection();
+			}
 		} else {
-			//addfailedinspection
+			for (InspectionObserver obs : inspectionObservers) {
+				obs.newFailedInspection();
+			}
 			
 		}
-		
 	}
 	/**
 	 * Get the next task to inspect on the current vehicle. Iterates through the

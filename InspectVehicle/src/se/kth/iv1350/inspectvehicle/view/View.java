@@ -81,6 +81,10 @@ public class View {
 				contr.enterResultOfInspection(result);
 			}
 			System.out.println("Database has been updated and inspection is finished. Customer leaves..");
+
+			System.out.println("Press any key to start a new inspection");
+			inputScanner.nextLine();
+			new View(this.contr);
 			
 		} catch (RegistrationNumberNotFoundException e) {
 			System.out.println(e.getMessage());
