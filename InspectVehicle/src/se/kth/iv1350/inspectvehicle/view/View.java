@@ -1,9 +1,11 @@
 package se.kth.iv1350.inspectvehicle.view;
 
+import java.io.IOException;
 import java.time.YearMonth;
 import java.util.Scanner;
 import se.kth.iv1350.inspectvehicle.controller.Controller;
 import se.kth.iv1350.inspectvehicle.integration.RegistrationNumberNotFoundException;
+import se.kth.iv1350.inspectvehicle.util.LogHandler;
 import se.kth.iv1350.payauth.CreditCard;
 
 /**
@@ -14,6 +16,7 @@ import se.kth.iv1350.payauth.CreditCard;
 public class View {
 	private Controller contr;
 	private Scanner inputScanner;
+	private LogHandler log;
 
 	/**
 	 * Creates a new instance representing the user interface. It also starts the chain of commands that are given by the View,
@@ -22,55 +25,61 @@ public class View {
 	 * @param contr The controller instance that handles all calls from the View to the system itself
 	 */
 	public View(Controller contr) {
-		this.contr = contr;
-		this.inputScanner = new Scanner(System.in);
-		
-		InspectionStatsView statsDisplay = new InspectionStatsView();
-		contr.addInspectionObserver(statsDisplay);
-		
-		startHardCodedCommands();
+		try {
+			this.contr = contr;
+			this.inputScanner = new Scanner(System.in);
+			log = new LogHandler();
+
+			InspectionStatsView statsDisplay = new InspectionStatsView();
+			contr.addInspectionObserver(statsDisplay);
+
+			startHardCodedCommands();
+		} catch (IOException e) {
+			System.out.println("Error trying to create log file, cannot continue without, exiting..");
+		}
 	}
-	
+
+
 	private void startHardCodedCommands() {
-		
+
 		try {
 			System.out.println("Starting program...");
-			
+
 			inputScanner.nextLine();
-			
+
 			contr.beginInspection();
 			System.out.println("Begin new inspection: Display next number and open garage door");
-			
+
 			inputScanner.nextLine();
-	
+
 			contr.closeDoor();
 			System.out.println("Closing garage door.");
-			
+
 			inputScanner.nextLine();
-	
-			String sampleRegNr = "DEF456";
+
+			String sampleRegNr = "DEF4562";
 			System.out.println("Inputting customer car with registration number " + sampleRegNr + " into the system.");
-			
+
 			int cost = contr.enterRegNr(sampleRegNr);
 			System.out.println("The cost of the inspection is: " + cost + ".");
-			
+
 			inputScanner.nextLine();
-	
-			
+
+
 			System.out.println("User wishes to pay by Credit Card. Inputting credit card details..");
 			System.out.println("Receipt:\n");
 			CreditCard customerCC = new CreditCard(0, "1234-5678-1234", "Fake Fakesson", YearMonth.of(2020, 10), 500);
 			contr.payByCC(customerCC);
-			
+
 			inputScanner.nextLine();
-			
+
 			System.out.println("Payment handled. Starting inspection process");
 			while (contr.hasMoreInspectionsToMake()) {
 				String toInspect = contr.whatInspectNext();
 				System.out.println("Next task to inspect is: " +
-									toInspect +
-									"\n"
-									);
+						toInspect +
+						"\n"
+						);
 				String result;
 				while (true) {
 					System.out.println("Input result ('pass' or 'fail'):");
@@ -88,12 +97,13 @@ public class View {
 			System.out.println("Press any key to start a new inspection");
 			inputScanner.nextLine();
 			startAnew();
-			
+
 		} catch (RegistrationNumberNotFoundException e) {
+			log.logException(e);
 			System.out.println(e.getMessage());
-		}
+		} 
 	}
-	
+
 	private void startAnew() {
 		startHardCodedCommands();
 	}
