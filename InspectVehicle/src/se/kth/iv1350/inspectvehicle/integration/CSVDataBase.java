@@ -11,6 +11,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class handles calls to the database if it is a .csv file.
+ * @author Max Körlinge
+ *
+ */
 public class CSVDataBase implements DatabaseHandler {
 
 	private ArrayList<String> inspectionsNeeded;
@@ -18,6 +23,10 @@ public class CSVDataBase implements DatabaseHandler {
 	private String regNr;
 	private String dataFilePath;
 
+	/**
+	 * Constructs a new instance of the databasehandler for a csv file.
+	 * @param regNr The registration number of the car which needs to be inspected, and later updated.
+	 */
 	public CSVDataBase(String regNr) {
 
 		this.inspectionsNeeded = new ArrayList<String>();
@@ -33,6 +42,28 @@ public class CSVDataBase implements DatabaseHandler {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 
+	}
+	
+	/**
+	 * Reads the database, a CSV file, and returns the required information.
+	 * @return The inspections needed, and the inspectoins log, which are arraylists contained in an arraylist.
+	 */
+	@Override
+	public ArrayList<ArrayList<String>> getInformationFromDatabase() {
+
+		InputStream inpStream = CSVDataBase.class.getResourceAsStream("/se/kth/iv1350/inspectvehicle/database/database.csv");
+		BufferedReader databaseReader = new BufferedReader(new InputStreamReader(inpStream));
+
+		String vehicleData = findVehicleInDatabase(databaseReader);
+
+		writeToInspectionsNeeded(vehicleData);
+		writeToInspectionsLog(vehicleData);
+
+		ArrayList<ArrayList<String>> information = new ArrayList<ArrayList<String>>();
+		information.add(inspectionsNeeded);
+		information.add(inspectionsLog);
+
+		return information;
 	}
 
 	/**
@@ -127,25 +158,6 @@ public class CSVDataBase implements DatabaseHandler {
 			return true;
 		}
 		return false;	
-	}
-
-
-	@Override
-	public ArrayList<ArrayList<String>> getInformationFromDatabase() {
-
-		InputStream inpStream = CSVDataBase.class.getResourceAsStream("/se/kth/iv1350/inspectvehicle/database/database.csv");
-		BufferedReader databaseReader = new BufferedReader(new InputStreamReader(inpStream));
-
-		String vehicleData = findVehicleInDatabase(databaseReader);
-
-		writeToInspectionsNeeded(vehicleData);
-		writeToInspectionsLog(vehicleData);
-
-		ArrayList<ArrayList<String>> information = new ArrayList<ArrayList<String>>();
-		information.add(inspectionsNeeded);
-		information.add(inspectionsLog);
-
-		return information;
 	}
 
 	private void writeToInspectionsLog(String vehicleData) {
