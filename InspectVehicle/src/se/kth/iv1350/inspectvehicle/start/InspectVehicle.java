@@ -19,10 +19,9 @@ public class InspectVehicle {
 	 */
 	public static void main(String[] args) {
 	
-		CarRegistry carRegistry = new CarRegistry();
 		CashRegister cashRegister = new CashRegister();
 		Printer printer = new Printer();
-		Controller contr = new Controller(carRegistry,cashRegister, printer);
+		Controller contr = new Controller(cashRegister, printer);
 		new View(contr);
 	}
 }

@@ -11,7 +11,7 @@ public class CarRegistryTest {
 	private CarRegistry carReg;
 	@Before
 	public void setUp() throws Exception {
-		carReg = new CarRegistry();
+		carReg = CarRegistry.getCarRegistry();
 	}
 
 	@After

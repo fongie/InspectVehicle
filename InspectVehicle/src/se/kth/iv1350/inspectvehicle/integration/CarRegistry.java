@@ -8,18 +8,26 @@ import java.util.ArrayList;
 
 /**
  * The registry containing a list of all registration numbers present in the database.
+ * Class is implemented using the Singleton pattern.
  * @author Max Körlinge
  *
  */
 public class CarRegistry {
 
+	private static final CarRegistry CAR_REGISTRY = new CarRegistry();
 	private ArrayList<String> carsInDatabase;
 	private BufferedReader databaseReader;
+	
 
-	/**
-	 * Creates the CarRegistry containing the registration numbers present in the database.
+	/** Get the CarRegistry containing the registration numbers present in the database.
+	 *
+	 * @return The CarRegistry
 	 */
-	public CarRegistry() {
+	public static CarRegistry getCarRegistry() {
+		return CAR_REGISTRY;
+	}
+	
+	private CarRegistry() {
 		carsInDatabase = new ArrayList<String>();
 		try {
 			

@@ -30,8 +30,8 @@ public class Controller {
 	 * @param cashReg The cashregister, containing the balance in cash
 	 * @param prnt Interface to the external printer
 	 */
-	public Controller(CarRegistry carRegistry, CashRegister cashReg, Printer prnt) {
-		this.carRegistry = carRegistry;
+	public Controller(CashRegister cashReg, Printer prnt) {
+		this.carRegistry = CarRegistry.getCarRegistry();
 		this.cashReg = cashReg;
 		this.grg = new Garage();
 		this.printer = prnt;

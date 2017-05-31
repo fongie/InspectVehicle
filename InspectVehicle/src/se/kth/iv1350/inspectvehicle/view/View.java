@@ -57,7 +57,7 @@ public class View {
 
 			inputScanner.nextLine();
 
-			String sampleRegNr = "DEF4562";
+			String sampleRegNr = "DEF456";
 			System.out.println("Inputting customer car with registration number " + sampleRegNr + " into the system.");
 
 			int cost = contr.enterRegNr(sampleRegNr);

@@ -29,7 +29,7 @@ public class ControllerTest {
 	@Before
 	public void setUp() throws Exception {
 		printer = new Printer();
-		cntr = new Controller(new CarRegistry(), new CashRegister(), printer);
+		cntr = new Controller(new CashRegister(), printer);
 
 		testCost = 1500;
 	}
@@ -71,7 +71,7 @@ public class ControllerTest {
 
 	@Test
 	public void testWhatInspectNextFirstTask() {
-		Controller cntr2 = new Controller(new CarRegistry(), new CashRegister(), printer);
+		Controller cntr2 = new Controller(new CashRegister(), printer);
 		
 		try {
 			cntr2.enterRegNr("TEST123");
