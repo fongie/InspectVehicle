@@ -15,9 +15,8 @@ public class CarFromDatabase {
 	private DatabaseHandler dbHandler;
 
 	/**
-	 * Creates an instance of the car in database, containing information
-	 * about inspections needed. Also updates the information in the database
-	 * when the inspection is finished.
+	 * Creates an instance of a Car, containing information
+	 * about inspections needed and past inspections made.
 	 * @param regNr The car's registration number.
 	 */
 	public CarFromDatabase(String regNr) {
@@ -26,10 +25,8 @@ public class CarFromDatabase {
 		this.inspectionsLog = new ArrayList<String>();
 		this.dbHandler = new CSVDataBase(regNr);
 			
-		ArrayList<ArrayList<String>> information = dbHandler.getInformationFromDatabase();
-		inspectionsNeeded = information.get(0);
-		inspectionsLog = information.get(1);
-	
+		inspectionsNeeded = dbHandler.getInspectionsFromDatabase();
+		inspectionsLog = dbHandler.getLogFromDatabase();
 	}
 	
 	/**

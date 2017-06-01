@@ -24,7 +24,8 @@ public class CSVDataBase implements DatabaseHandler {
 	private String dataFilePath;
 
 	/**
-	 * Constructs a new instance of the databasehandler for a csv file.
+	 * Constructs a new instance of the databasehandler for a csv file, for a car
+	 * with registrationnumber regNr.
 	 * @param regNr The registration number of the car which needs to be inspected, and later updated.
 	 */
 	public CSVDataBase(String regNr) {
@@ -42,15 +43,7 @@ public class CSVDataBase implements DatabaseHandler {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 
-	}
-	
-	/**
-	 * Reads the database, a CSV file, and returns the required information.
-	 * @return The inspections needed, and the inspectoins log, which are arraylists contained in an arraylist.
-	 */
-	@Override
-	public ArrayList<ArrayList<String>> getInformationFromDatabase() {
-
+		
 		InputStream inpStream = CSVDataBase.class.getResourceAsStream("/se/kth/iv1350/inspectvehicle/database/database.csv");
 		BufferedReader databaseReader = new BufferedReader(new InputStreamReader(inpStream));
 
@@ -58,14 +51,26 @@ public class CSVDataBase implements DatabaseHandler {
 
 		writeToInspectionsNeeded(vehicleData);
 		writeToInspectionsLog(vehicleData);
-
-		ArrayList<ArrayList<String>> information = new ArrayList<ArrayList<String>>();
-		information.add(inspectionsNeeded);
-		information.add(inspectionsLog);
-
-		return information;
+	}
+	
+	/**
+	 * Reads the database, a CSV file, and returns the required inspections.
+	 * @return The inspections needed as an <code>ArrayList</code>.
+	 */
+	@Override
+	public ArrayList<String> getInspectionsFromDatabase() {
+		return inspectionsNeeded;
 	}
 
+	/**
+	 * Reads the database, a CSV file, and returns the log.
+	 * @return The log as an <code>ArrayList</code>.
+	 */
+	@Override
+	public ArrayList<String> getLogFromDatabase() {
+		return inspectionsLog;
+	}
+	
 	/**
 	 * Updates the database (currently a .csv file) with the inspections made, the results,
 	 * and leaves failed inspections as "inspections needed" for later.

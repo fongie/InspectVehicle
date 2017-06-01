@@ -1,7 +1,6 @@
 package se.kth.iv1350.inspectvehicle.integration;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Iterface for database handlers, used by classes that call different types of databases.
@@ -22,9 +21,15 @@ public interface DatabaseHandler {
 	public void updateDatabase(ArrayList<String> inspectionsPerformed, ArrayList<String> resultsOfInspections);
 	
 	/**
-	 * Gets the required information from the database.
-	 * @return A list of two lists. Index 0 is the inspections needed, index 1 is the log of previous inspections.
+	 * Gets the inspections needed for the car from the database.
+	 * @return The list of inspections as an <code>ArrayList</code>
 	 */
-	public ArrayList<ArrayList<String>> getInformationFromDatabase();
+	public ArrayList<String> getInspectionsFromDatabase();
+	
+	/**
+	 * Gets the log of previous inspections made for the car from the database.
+	 * @return The log as an <code>ArrayList</code>
+	 */
+	public ArrayList<String> getLogFromDatabase();
 	
 }
